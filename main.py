@@ -29,7 +29,7 @@ print(percentual)
 
 #Hipótese 2: Taxa de sobrevivência por idade (pessoas adultas tem mais chances de sobreviver)
 # Definir os limites das faixas
-df_copia = df
+df_copia = df.copy()
 
 bins = [0, 10, 20, 30, 40, 50, 60, 70, 80, np.inf]
 # Definir os nomes para cada faixa (um a menos que os limites)
@@ -42,3 +42,16 @@ taxa_sobrevivencia = df_copia.groupby('Faixa_Etaria')['Survived'].mean()
 print(taxa_sobrevivencia)
 #Detalhe, não tinha ninguém entre 70 e 80 anos, e só uma pessoa com mais de 80 anos.
 #Hipótese negada> Crianças entre 0-10 anos e pessoas +80 tiveram maior taxas de sobrevivência
+
+#Hipótese 3: Pessoas que não possuem irmãos, esposo/esposa, pais e filhos presentes (se tiver um desses já não entra no grupo) têm
+#mais chances de sobreviverem
+df_copia = df.copy()
+
+df_sozinho = df_copia[(df_copia['SibSp'] + df_copia['Parch'])==0]
+
+print("Média de sobrevivência de qm tava sozinho: ", df_sozinho['Survived'].mean())
+
+df_acompanhado = df_copia[(df_copia['SibSp'] + df_copia['Parch'])!=0]
+print("Média de sobrevivência de qm tava acompanhado: ", df_acompanhado['Survived'].mean())
+
+#Me fodi na hipótese, pessoas acompanhadas tiveram mais chances
