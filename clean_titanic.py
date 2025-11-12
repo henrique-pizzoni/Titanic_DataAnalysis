@@ -37,12 +37,17 @@ print(df.isnull().sum())
 # 3. Ajuste de Tipos de Dados
 # Converter Sex e Embarked para numérico usando LabelEncoder
 le = LabelEncoder()
-df['Sex'] = le.fit_transform(df['Sex'])
-df['Embarked'] = le.fit_transform(df['Embarked'])
+#df['Sex'] = le.fit_transform(df['Sex'])
+#df['Embarked'] = le.fit_transform(df['Embarked'])
+
+#Decidimos não transformar essas colunas em numéricas neste ponto para preservar interpretabilidade.
 
 # Verificar Survived e Pclass (devem ser int)
-print("\nTipos de dados após ajustes:")
-print(df.dtypes)
+#print("\nTipos de dados após ajustes:")
+#print(df.dtypes)
+
+#Não é necessário ajuste adicional, pois já estão em int64.
+
 
 # 4. Feature Engineering
 # Criar FamilySize
@@ -75,7 +80,9 @@ title_mapping = {
 df['Title'] = df['Title'].map(title_mapping).fillna('Rare')
 
 # Converter Title para numérico
-df['Title'] = le.fit_transform(df['Title'])
+#df['Title'] = le.fit_transform(df['Title'])
+
+#
 
 # 5. Tratamento de Duplicatas e Outliers
 # Remover duplicatas
@@ -83,6 +90,7 @@ initial_shape = df.shape
 df.drop_duplicates(inplace=True)
 print(f"\nDuplicatas removidas: {initial_shape[0] - df.shape[0]}")
 
+'''
 # Analisar outliers em Fare e Age com boxplots
 plt.figure(figsize=(12, 6))
 
@@ -99,8 +107,7 @@ plt.ylabel('Fare')
 plt.tight_layout()
 plt.savefig('outliers_analysis.png')
 plt.show()
-
-# Decisão: Manter outliers, pois podem ser informativos para análise (e.g., bilhetes caros)
+'''
 
 # 6. Limpeza de Colunas Irrelevantes
 # Remover PassengerId, Ticket, Name
@@ -121,9 +128,9 @@ print("Colunas alteradas/removidas:")
 print("- Age: Preenchido com mediana")
 print("- Cabin: Preenchido com 'Unknown'")
 print("- Embarked: Preenchido com moda")
-print("- Sex: Convertido para numérico (LabelEncoder)")
-print("- Embarked: Convertido para numérico (LabelEncoder)")
-print("- Title: Extraído de Name, agrupado e convertido para numérico")
+#print("- Sex: Convertido para numérico (LabelEncoder)")
+#print("- Embarked: Convertido para numérico (LabelEncoder)")
+print("- Title: Extraído de Name")
 print("- FamilySize: Criado a partir de SibSp + Parch + 1")
 print("- PassengerId, Ticket, Name: Removidos")
 print("Estratégias para valores nulos:")
