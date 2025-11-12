@@ -111,7 +111,7 @@ plt.show()
 
 # 6. Limpeza de Colunas Irrelevantes
 # Remover PassengerId, Ticket, Name
-df.drop(['PassengerId', 'Ticket', 'Name'], axis=1, inplace=True)
+df.drop(['Ticket', 'Name'], axis=1, inplace=True)
 
 # 7. Exportação do Dataset Limpo
 df.to_csv('titanic_cleaned.csv', index=False)
